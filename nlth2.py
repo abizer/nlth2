@@ -46,15 +46,15 @@ def insert_transaction(name, iid):
 def update_transaction(formdata):
     transaction = reduce_transaction(formdata)
     stmt = """
-		UPDATE transactions SET
-			`name` = :name,
-			`iid` = :iid,
-			`name` = :name,
-			`date` = :date,
-			`price` = :price,
-			`open` = :open
-		WHERE ROWID = :rowid
-	"""
+        UPDATE transactions SET
+	    `name` = :name,
+            `iid` = :iid,
+	    `name` = :name,
+	    `date` = :date,
+	    `price` = :price,
+            `open` = :open
+        WHERE ROWID = :rowid
+        """
     g.db.execute(stmt, transaction)
     d.db.commit()
     return get_transaction(transaction['rowid'], dict)
@@ -96,10 +96,10 @@ def get_items_by_attr(attr):
 
 def get_most_popular_items(limit):
     stmt = """
-		SELECT items.name, items.price, items.ROWID, COUNT(transactions.iid) as sales 
-		FROM transactions INNER JOIN items ON transactions.iid=items.ROWID 
-		GROUP BY transactions.iid ORDER BY COUNT(transactions.iid) DESC LIMIT ?;
-		"""
+        SELECT items.name, items.price, items.ROWID, COUNT(transactions.iid) as sales 
+        FROM transactions INNER JOIN items ON transactions.iid=items.ROWID 
+        GROUP BY transactions.iid ORDER BY COUNT(transactions.iid) DESC LIMIT ?;
+        """
     return list(g.db.execute(stmt, (limit,)))
 
 
@@ -117,15 +117,15 @@ def insert_item(name, group, price, cost, disabled, attr):
 def update_item(formdata):
     item = reduce_item(formdata)
     stmt = """
-				UPDATE items SET
-					`name` = :name,
-					`group` = :group,
-					`price` = :price,
-					`cost` = :cost,
-					`disabled` = :disabled,
-					`attr` = :attr
-				WHERE ROWID = :rowid
-			"""
+        UPDATE items SET
+            `name` = :name,
+            `group` = :group,
+            `price` = :price,
+            `cost` = :cost,
+            `disabled` = :disabled,
+            `attr` = :attr
+        WHERE ROWID = :rowid
+	"""
     g.db.execute(stmt, item)
     g.db.commit()
     return get_item(item['rowid'], dict)
@@ -176,7 +176,10 @@ def modify_transaction(tid):
     else:
         if request.method == 'POST':
             transaction = update_transaction(request.form)
-            return jsonify(message="{0}'s transaction (#{1}) successfully modified.".format(transaction['name'], tid), transaction=transaction)
+            return jsonify(
+                message="{0}'s transaction (#{1}) successfully modified.".format(
+                    transaction['name'], tid),
+                transaction=transaction)
         else:
             return render_template('transaction.html', transaction=get_transaction(tid))
 
@@ -225,7 +228,8 @@ def delete_item(iid):
 
 
 def get_date(date):
-    data = g.db.execute('SELECT transactions.ROWID, items.name as Item, transactions.name, transactions.date, transactions.price FROM transactions JOIN items ON transactions.iid = items.ROWID WHERE date = ?', (date.strftime('%Y-%m-%d'),))
+    data = g.db.execute('SELECT transactions.ROWID, items.name as Item, transactions.name, transactions.date, transactions.price FROM transactions JOIN items ON transactions.iid = items.ROWID WHERE date = ?',
+                        (date.strftime('%Y-%m-%d'),))
     return data.fetchall()
 
 
