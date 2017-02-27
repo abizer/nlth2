@@ -5,11 +5,8 @@ from collections import defaultdict
 import datetime
 from datetime import datetime as d
 
-DATABASE = 'nlth2x.db'  # 'nlth2/nlth2x.db' on the server
+DATABASE = 'nlth2x.db'
 DEBUG = True
-#SECRET_KEY = 'giant_killers'
-#USERNAME = 'admin'
-#PASSWORD = 'password'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
