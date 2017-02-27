@@ -1,1 +1,15 @@
-/etc/systemd/system/docker-nlth2.service
+[Unit]
+Description=Docker container for nlth2
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=on-failure
+User=abizer
+Group=www-data
+ExecStart=/usr/bin/docker start -a nlth2-alpine
+ExecStop=/usr/bin/docker stop -t 2 nlth2-alpine
+
+[Install]
+WantedBy=multi-user.target
+
