@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block page_title %}Editing transaction #{{ transaction['rowid'] }}{% endblock %}
+{% block body %}
+<form action="{{ url_for('modify_transaction', tid=transaction.rowid) }}" method='POST'>
+	<table class="table">
+		{% for key in transaction.keys() %}
+		<tr>
+			<td> {{ key|capitalize }} </td>
+			<td><input type="text" name="{{ key }}" id="input-{{ key }}" value="{{ transaction[key] }}" /></td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td> <button type="submit" class="btn btn-default">Change Item</button> </td>
+		</tr>
+	</table>
+</form>
+{% endblock %}

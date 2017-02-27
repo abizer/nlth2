@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block page_title %}Editing {{ item['name']|default('item') }}{% endblock %}
+{% block body %}
+{% if item %}
+<form action="{{ url_for('modify_item', iid=item.rowid) }}" method='POST'>
+	<table class="table">
+		{% for key in item.keys() %}
+		<tr>
+			<td> {{ key|capitalize }} </td>
+			<td><input type="text" name="{{ key }}" id="input-{{ key }}" value="{{ item[key] }}" /></td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td> <button type="submit" class="btn btn-default">Change Item</button> </td>
+		</tr>
+	</table>
+</form>
+{% else %}
+<h2> No item by this ID exists in the database. </h2>
+{% endif %}
+{% endblock %}

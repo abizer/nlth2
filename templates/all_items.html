@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block title %}Edit Item{% endblock %}
+{% block page_title %}Choose an item to edit{% endblock %}
+{% block body %}
+{% if groups %}
+	<div class="container-fluid">
+	{% for group, items in groups|dictsort %}
+		<div class="col-md-4">
+			<h3> {{ group }} </h3>
+			<ul class="">
+				{% for item in items %}
+					<li><a href="{{ url_for('modify_item', iid=item.rowid ) }}">{{ item.name }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+	</div>
+{% endif %}
+{% endblock %}
