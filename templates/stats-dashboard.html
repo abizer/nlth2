@@ -3,55 +3,63 @@
 {% block page_title %}Cafe Performance{% endblock %}
 {% block body %}
 <div class="row">
-	<div class="col-sm-6">
-		<p><h2>Revenue to date: ${{ data['total_revenue']['revenue'] }}</h2></p>
-		<p><h2>Profit to date: ${{ data['total_profit']['profit'] }}</h2></p>
-	</div>
-	<div class="col-sm-6">
-		<p><h2>Revenue today: {{ data['daily_revenue']['revenue'] }}</h2></p>
-		<p><h2>Profit today: {{ data['daily_profit']['profit'] }}</h2></p>
-	</div>
+    <div class="col-sm-6">
+        <p>
+            <h2>Revenue to date: ${{ data['total_revenue']['revenue'] }}</h2>
+        </p>
+        <p>
+            <h2>Profit to date: ${{ data['total_profit']['profit'] }}</h2>
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p>
+            <h2>Revenue today: {{ data['daily_revenue']['revenue'] }}</h2>
+        </p>
+        <p>
+            <h2>Profit today: {{ data['daily_profit']['profit'] }}</h2>
+        </p>
+    </div>
 </div>
 <hr />
 <div class="row">
-	<div class="col-sm-6">
-		<h2> Most Popular Items </h2>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td> Item </td>
-					<td> Sales to date </td>
-					<td> Current Price </td>
-				</tr>
-			</thead>
-			{% for item in data['popular_items'] %}
-			<tr>
-				<td><a href="{{ url_for('modify_item', iid = item.rowid) }}" class="h4">{{ item.name }}</a></td>
-				<td>{{ item.sales }}</td>
-				<td> ${{ '%0.2f' % item.price }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
-	<div class="col-sm-6">
-		<h2> Recent Transactions </h2>
-		<table class="table table-condensed">
-			<thead>
-				<tr>
-					{% for label in data['recent_transactions'][0].keys() %}
-					<td> {{ label|capitalize }} </td>
-					{% endfor %}
-				</tr>
-			</thead>
-			{% for transaction in data['recent_transactions'] %}
-			<tr>
-				{% for i in transaction.keys() %}
-				<td> {{ transaction[i] }} </td>
-				{% endfor %}
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
+    <div class="col-sm-6">
+        <h2> Most Popular Items </h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td> Item </td>
+                    <td> Sales to date </td>
+                    <td> Current Price </td>
+                </tr>
+            </thead>
+            {% for item in data['popular_items'] %}
+            <tr>
+                <td><a href="{{ url_for('modify_item', iid = item.rowid) }}" class="h4">{{ item.name }}</a></td>
+                <td>{{ item.sales }}</td>
+                <td> ${{ '%0.2f' % item.price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <h2> Recent Transactions </h2>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    {% for label in data['recent_transactions'][0].keys() %}
+                    <td> {{ label|capitalize }} </td>
+                    {% endfor %}
+                </tr>
+            </thead>
+            {% for transaction in data['recent_transactions'] %}
+            <tr>
+                {% for i in transaction.keys() %}
+                <td> {{ transaction[i] }} </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 {% endblock %}

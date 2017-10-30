@@ -1,25 +1,26 @@
 {% extends 'index.html' %}
 {% block title %}Statistics{% endblock %}
 {% block page_title %}{{ context|capitalize }}'s Sales (${{ "%0.2f" % data|sum(attribute='price') }}){% endblock %}
+
 {% block body %}
 {% if data %}
 <table class='table'>
-	<thead>
-		<tr>
-		{% for label in data[0].keys() %}
-			<td> {{ label|capitalize }} </td>
-		{% endfor %}
-			<td> Delete </td>
-		</tr>
-	</thead>
-	{% for row in data %}
-	<tr data-rowid="{{ row.rowid }}">
-		{% for unit in row.keys() %}
-		<td> {{ row[unit] }} </td>
-		{% endfor %}
-		<td> <button onclick="delete_transaction({{ row.rowid }})" class="btn btn-default">Delete</button> </td>
-	</tr>
-	{% endfor %}
+    <thead>
+        <tr>
+            {% for label in data[0].keys() %}
+            <td> {{ label|capitalize }} </td>
+            {% endfor %}
+            <td> Delete </td>
+        </tr>
+    </thead>
+    {% for row in data %}
+    <tr data-rowid="{{ row.rowid }}">
+        {% for unit in row.keys() %}
+        <td> {{ row[unit] }} </td>
+        {% endfor %}
+        <td> <button onclick="delete_transaction({{ row.rowid }})" class="btn btn-default">Delete</button> </td>
+    </tr>
+    {% endfor %}
 </table>
 {% endif %}
 {% endblock %}

@@ -3,73 +3,76 @@
 {% block page_title %}Sales Page{% endblock %}
 {% block left_sidebar_optional %}
 <div>
-  <p> Total: <span id="total_cost" class="h4">$0.00</span> </p>
-  <p> Change from $20: <span id="change_20">$20.00</span> </p>
-  <p> Change from $10: <span id="change_10">$10.00</span> </p>
-  <p> Change from $5: <span id="change_5">$5.00</span> </p>
-  <button class="submit_transaction btn btn-default"> Submit Order </button>
- </div>
+    <p> Total: <span id="total_cost" class="h4">$0.00</span> </p>
+    <p> Change from $20: <span id="change_20">$20.00</span> </p>
+    <p> Change from $10: <span id="change_10">$10.00</span> </p>
+    <p> Change from $5: <span id="change_5">$5.00</span> </p>
+    <button class="submit_transaction btn btn-default"> Submit Order </button>
+</div>
 {% endblock %}
 {% block body %}
 <div class="row">
-	<div class="form-horizontal">
-		<div class="form-group">
-			<label for="name" class="form-control"> Customers Name:  </label>
-			<input type="text" class="form-control" placeholder="Required!" name="cust_name" id="autoname" />
-			<button class="submit_transaction btn btn-default form-control" style="margin-top: 5px;"> Submit Order </button>
-		</div>
-	</div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="form-control"> Customers Name:  </label>
+            <input type="text" class="form-control" placeholder="Required!" name="cust_name" id="autoname" />
+            <button class="submit_transaction btn btn-default form-control" style="margin-top: 5px;"> Submit Order </button>
+        </div>
+    </div>
 </div>
 <div class="row">
-	<div class="">
-	    <table class="table table-condensed">
-	    	{% if popular %}
-	    	<tbody class="h3"> <tr> <td> Popular Items </td> </tr> </tbody>
-	    		{% for item in popular|sort(attribute='name') %}
-				<tr>
-					<td>
-						<input type="checkbox" class="box form-control" data-cost={{ item.price }} data-id={{ item.rowid }} name='{{ item.rowid }}' />
-					</td>
-					<td>
-						<a href="{{ url_for('modify_item', iid=item.rowid) }}">
-							<label for="{{ item.rowid }}">{{ item.name }}</label>
-						</a>
-					</td>
-					<td> ${{ "%0.2f" % item.price }} </td>
-					<td>
-						<label for={{ item.rowid }}[1]> Quantity: </label>
-					</td>
-					<td>
-						<input type="number" class="quantity" maxlength="2" value='1' name='{{ item.rowid }}[1]' />
-					</td>
-				</tr>
-	    		{% endfor %}
-	    	{% endif %}
-			{% if groups %}
-				{% for group, items in groups|dictsort %}
-					<tbody class="h4"> <tr> <td> {{ group }} </td> </tr> </tbody>
-					{% for item in items|sort(attribute='name') %}
-					<tr>
-						<td>
-							<input type="checkbox" class="box" data-cost={{ item.price }} data-id={{ item.rowid }} name='{{ item.rowid }}' />
-						</td>
-						<td>
-							<a href="{{ url_for('modify_item', iid=item.rowid) }}">
-								<label for="{{ item.rowid }}">{{ item.name }}</label>
-							</a>
-						</td>
-						<td> ${{ "%0.2f" % item.price }} </td>
-						<td>
-							<label for={{ item.rowid }}[1]> Quantity: </label>
-						</td>
-						<td>
-							<input type="number" class="quantity" maxlength="2" value='1' name='{{ item.rowid }}[1]' />
-						</td>
-					</tr>
-					{% endfor %}
-				{% endfor %}
-			{% endif %}
-		</table>
-	</div>
+    <div class="">
+        <table class="table table-condensed">
+            {% if popular %}
+            <tbody class="h3">
+                <tr>
+                    <td> Popular Items </td>
+                </tr>
+            </tbody>
+            {% for item in popular|sort(attribute='name') %}
+            <tr>
+                <td>
+                    <input type="checkbox" class="box form-control" data-cost={{ item.price|float }} data-id={{ item.rowid }} name='{{ item.rowid }}' />
+                </td>
+                <td>
+                    <a href="{{ url_for('modify_item', iid=item.rowid) }}">
+		      <label for="{{ item.rowid }}">{{ item.name }}</label>
+		    </a>
+                </td>
+                <td> ${{ "%0.2f" % item.price|float }} </td>
+                <td>
+                    <label for={{ item.rowid }}[1]> Quantity: </label>
+                </td>
+                <td>
+                    <input type="number" class="quantity" maxlength="2" value='1' name='{{ item.rowid }}[1]' />
+                </td>
+            </tr>
+            {% endfor %} {% endif %} {% if groups %} {% for group, items in groups|dictsort %}
+            <tbody class="h4">
+                <tr>
+                    <td> {{ group }} </td>
+                </tr>
+            </tbody>
+            {% for item in items|sort(attribute='name') %}
+            <tr>
+                <td>
+                    <input type="checkbox" class="box" data-cost={{ item.price|float }} data-id={{ item.rowid }} name='{{ item.rowid }}' />
+                </td>
+                <td>
+                    <a href="{{ url_for('modify_item', iid=item.rowid) }}">
+		      <label for="{{ item.rowid }}">{{ item.name }}</label>
+		    </a>
+                </td>
+                <td> ${{ "%0.2f" % item.price|float }} </td>
+                <td>
+                    <label for={{ item.rowid }}[1]> Quantity: </label>
+                </td>
+                <td>
+                    <input type="number" class="quantity" maxlength="2" value='1' name='{{ item.rowid }}[1]' />
+                </td>
+            </tr>
+            {% endfor %} {% endfor %} {% endif %}
+        </table>
+    </div>
 </div>
 {% endblock %}

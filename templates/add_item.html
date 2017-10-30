@@ -3,40 +3,40 @@
 {% block page_title %}Add an Item{% endblock %}
 {% block body %}
 <form action="{{ url_for('add_item') }}" method='POST'>
-	<table class="table">
-		<tr>
-			<td><label for="name">Item Name:</label></td>
-			<td><input type="text" name="name" class='form-control' placeholder="Lemonade" /></td>
-		</tr>
-		<tr>
-			<td><label for="group">Item Group:</label></td>
-			<td><input type="text" name="group" class='form-control' placeholder="Drinks" /></td>
-		</tr>
-		<tr>
-			<td><label for="price">Item Price:</label></td>
-			<td><input type="number" name="price" class='form-control' placeholder="1.0" step="any" /></td>
-		</tr>
-		<tr>
-			<td><label for="cost">Item Cost (to us):</label></td>
-			<td><input type="text" name="cost" class='form-control' placeholder="0.25" step="any" /></td>
-		</tr>
-		<tr>
-			<td><label for="attr">Item Attributes (comma separated, leave empty for none) :</label></td>
-			<td><input type="text" name="attr" class='form-control' placeholder='popular,kitchen' /></td>
-		</tr>
-		<tr>
-			<td><label for="disabled">Item Disabled?:</label></td>
-			<td>
-				<div class="radio">
-					<label><input type="radio" name="disabled" value="1" />Yes</label><br />
-					<label><input type="radio" name="disabled" value="0" checked />No</label>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<button type="submit" class="btn btn-default">Add Item</button>
-			</td>
-	</table>
+    <table class="table">
+        <tr>
+            <td><label for="name">Item Name:</label></td>
+            <td><input type="text" name="name" class='form-control' placeholder="Lemonade" /></td>
+        </tr>
+        <tr>
+            <td><label for="group">Item Group:</label></td>
+            <td><input type="text" name="group" class='form-control' placeholder="Drinks" /></td>
+        </tr>
+        <tr>
+            <td><label for="price">Item Price:</label></td>
+            <td><input type="number" name="price" class='form-control' placeholder="1.0" step="any" /></td>
+        </tr>
+        <tr>
+            <td><label for="cost">Item Cost (to us):</label></td>
+            <td><input type="text" name="cost" class='form-control' placeholder="0.25" step="any" /></td>
+        </tr>
+        <tr>
+            <td><label for="attr">Item Attributes (comma separated, leave empty for none) :</label></td>
+            <td><input type="text" name="attr" class='form-control' placeholder='popular,kitchen' /></td>
+        </tr>
+        <tr>
+            <td><label for="disabled">Item Disabled?:</label></td>
+            <td>
+                <div class="radio">
+                    <label><input type="radio" name="disabled" value="1" />Yes</label><br />
+                    <label><input type="radio" name="disabled" value="0" checked />No</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit" class="btn btn-default">Add Item</button>
+            </td>
+    </table>
 </form>
 {% endblock %}

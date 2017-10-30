@@ -1,11 +1,17 @@
 server {
-    listen 80;
+    listen 443 ssl;
     server_name cafe.alsionschool.org cafe2.tahabi.com;
 
     client_max_body_size 100M;
 
+    ssl_certificate /etc/letsencrypt/live/cafe2.tahabi.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cafe2.tahabi.com/privkey.pem;
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+    include snippets/ssl-params.conf;
+
     access_log /var/log/nginx/access_nlth2.log;
-    error_log /var/log/nginx/error_nlth2.log 
+    error_log /var/log/nginx/error_nlth2.log;
 
     location /favicon.ico { access_log off; log_not_found off; }
 
@@ -13,9 +19,21 @@ server {
         root /home/abizer/projects/nlth2/;
     }
 
+    location ~ /.well-known/ {
+        root /home/abizer/projects/nlth2/;
+	allow all;
+    }
+
     location / {
         include proxy_params;
         proxy_pass http://unix:/home/abizer/projects/nlth2/socket/nlth2.sock;
     }
 }
-	
+
+server {
+    listen 80;
+    server_name cafe2.tahabi.com cafe.alsionschool.org;
+    return 301 https://$host$request_uri;
+}
+
+

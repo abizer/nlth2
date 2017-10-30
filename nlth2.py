@@ -34,7 +34,7 @@ def get_transactions(limit):
 
 
 def reduce_transaction(formdata):
-    return {key: val for key, val in formdata.iteritems() if key in ['rowid', 'name', 'iid', 'date', 'price', 'open']}
+    return {key:val for key, val in formdata.iteritems() if key in ['rowid', 'name', 'iid', 'date', 'price', 'open']}
 
 
 def insert_transaction(name, iid):
@@ -104,7 +104,7 @@ def get_most_popular_items(limit):
 
 
 def reduce_item(formdata):
-    return {key: val for key, val in formdata.iteritems() if key in ['rowid', 'name', 'group', 'price', 'cost', 'disabled', 'attr']}
+    return {key:val for key, val in formdata.iteritems() if key in ['rowid', 'name', 'group', 'price', 'cost', 'disabled', 'attr']}
 
 
 def insert_item(name, group, price, cost, disabled, attr):
